@@ -24,7 +24,7 @@ module.exports = {
     module: {
         preLoaders:[
             { test: /\.vue$/, loader: 'eslint', exclude: /node_modules/ },
-            { test: /\.js$/, loader: 'eslint', exclude: /node_modules/}
+            { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ },
         ],
         loaders: [
             { test: /\.css$/, loader: extractTextPlugin.extract('style-loader','css-loader?sourceMap')},

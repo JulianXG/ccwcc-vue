@@ -1,9 +1,10 @@
 <template>
     <div>
+        <toast></toast>
         <form class="form-signin">
             <h2>后台管理系统</h2>
             <input v-model="user.userName"
-                   type="text" id="inputUsername"
+                   type="text"
                    class="form-control"
                    placeholder="用户名"
                    required autofocus>
@@ -14,22 +15,37 @@
                    class="form-control"
                    placeholder="密码" required>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+            <button @click="login(user)" @keydown.enter="login(user)" class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
         </form>
     </div>
 </template>
 
 <script>
+    import {login,testLogin} from './actoins';
+    import {isLogin} from '../../vuex/getters';
+    import store from '../../vuex/store';
+    import toast from '../common/toast.vue';
 
     export default{
+        components: {toast},
         data(){
             return{
-                user:{
-                    userName: '',
-                    password: ''
-                }
+                user:{ userName: '', password: '' }
             };
-        }
+        },
+        vuex: {
+            actions: {login},
+            getters: {isLogin}
+        },
+        route: {
+            canActivate: transition => {
+                if(isLogin(store.state)){
+                    transition.redirect('/index/home');
+                }else {
+                    transition.next();
+                }
+            },
+        },
     };
 </script>
 

@@ -1,15 +1,33 @@
 <template>
     <div>
-        <p class="prompt">Welcome Statistics! </p>
+        <div id="allChart" class=""></div>
     </div>
 </template>
 
 <script>
-    export default{
+    import echarts from 'echarts';
+    import {initCharts} from './actions';
 
+    export default{
+        data(){
+            return{
+            };
+        },
+        vuex: {
+            actions: {initCharts}
+        },
+        ready() {
+            var allChart = echarts.init(document.getElementById('allChart'));
+            initCharts(allChart);
+        }
     };
 </script>
 
 <style>
+    #allChart{
+        height:400px;
+        width:100%;
+        margin:20px;
+    }
 
 </style>

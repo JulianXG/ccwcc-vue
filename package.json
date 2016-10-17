@@ -1,12 +1,12 @@
 {
   "name": "ccwcc",
-  "version": "0.0.0",
+  "version": "0.6.0",
   "description": "中国沿海水鸟调查后台管理系统",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --colors --inline --hot --host 0.0.0.0",
-    "build": "webpack"
+    "dev": "webpack-dev-server --colors --inline --hot --host 0.0.0.0 --port 80",
+    "build": "SET NODE_ENV = 'production' && webpack"
   },
   "author": "kalyter",
   "license": "ISC",
@@ -20,13 +20,16 @@
     "babel-runtime": "^6.11.6",
     "bootstrap": "^3.3.7",
     "css-loader": "^0.23.1",
+    "echarts": "^3.2.3",
     "eslint": "^3.3.1",
     "eslint-friendly-formatter": "^2.0.6",
     "eslint-loader": "^1.5.0",
     "eslint-plugin-html": "^1.5.2",
+    "eslint-plugin-vue": "^0.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
+    "http-proxy-middleware": "^0.17.2",
     "jquery": "^3.1.0",
     "mint-ui": "^0.2.6",
     "style-loader": "^0.13.1",
@@ -40,6 +43,11 @@
     "vue-router": "^0.7.13",
     "vue-strap": "^1.0.11",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^1.13.1"
+    "vue-toast": "^2.0.3",
+    "vue-validator": "^2.1.5",
+    "vuex": "^1.0.0-rc.2",
+    "vuex-router-sync": "^2.1.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.16.1"
   }
 }

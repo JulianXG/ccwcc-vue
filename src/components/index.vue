@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav-bar></nav-bar>
-        <router-view></router-view>
+        <router-view keep-alive></router-view>
         <footer-bar></footer-bar>
     </div>
 </template>
@@ -9,9 +9,16 @@
 <script>
     import NavBar from './common/NavBar';
     import FooterBar from './common/FooterBar';
+    import {isLogin} from '../vuex/getters';
+    import VueRouter from 'vue-router';
 
     export default{
-        components: { NavBar,FooterBar }
+        components: { NavBar,FooterBar },
+        vuex: {
+            getters: {
+                isLogin
+            }
+        }
     };
 </script>
 

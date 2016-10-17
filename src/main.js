@@ -4,12 +4,15 @@
  */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ConfigRouter from './router';
-import 'bootstrap/dist/css/bootstrap';
-import 'bootstrap/dist/js/bootstrap';
+import {sync} from 'vuex-router-sync';
+import 'bootstrap/dist/css/bootstrap.min';
+import 'bootstrap/dist/js/bootstrap.min';
 
-// Vue.config.debug = true;
+import ConfigRouter from './router';
+import store from './vuex/store';
+
 Vue.use(VueRouter);
-const router = new VueRouter({});
+const router = new VueRouter();
 
 ConfigRouter(router);
+sync(store, router);
