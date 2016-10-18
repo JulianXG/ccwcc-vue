@@ -67,14 +67,14 @@
     import {addUser} from './actions';
 
     export default{
-        data(){
-            return{
+        data () {
+            return {
                 user: {
                     nickname: '',
                     userName: '',
                     permission: '',
                     checkPoint: '',
-                    password: '',
+                    password: ''
                 }
             };
         },

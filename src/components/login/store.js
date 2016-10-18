@@ -5,13 +5,13 @@ import types from '../../vuex/types';
 
 export default {
     state: {
-        user: null,
+        user: null
     },
     mutations: {
         [types.ADD_USER] (state, user) {
             state.user = user;
         },
-        [types.LOG_OFF] (state){
+        [types.LOG_OFF] (state) {
             state.user = null;
         }
     }

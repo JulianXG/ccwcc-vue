@@ -65,8 +65,8 @@
 <script>
     import {addBird} from './actions';
     export default{
-        data(){
-            return{
+        data () {
+            return {
                 tooltip: {
                     code: '如：0064#对应栗树鸭',
                     datetime: '如其格式如：2016-1-1 1:11:11'
@@ -80,11 +80,11 @@
                     detail: '',
                     weather: '',
                     datetime: '',
-                    recordIndex: '',
-                },
+                    recordIndex: ''
+                }
             };
         },
-        ready(){
+        ready () {
             $('[data-toggle = tooltip]').tooltip();
         },
         vuex: {

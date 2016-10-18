@@ -45,36 +45,35 @@
 </template>
 
 <script>
-    import {initUsers,removeUser} from './actions';
-    import store from '../../vuex/store';
+    import {initUsers, removeUser} from './actions';
     import {getUserList} from '../../vuex/getters';
     import UserInfo from './UserInfo.vue';
     import AddUser from './AddUser.vue';
 
     export default{
-        data(){
-            return{
-                selectedUser: null,
+        data () {
+            return {
+                selectedUser: null
             };
         },
-        components: {UserInfo,AddUser},
+        components: {UserInfo, AddUser},
         vuex: {
-            actions: {initUsers,removeUser},
+            actions: {initUsers, removeUser},
             getters: {
-                users: getUserList,
+                users: getUserList
             }
         },
-        ready(){
+        ready () {
             $('[data-toggle = tooltip]').tooltip();
             this.initUsers();
         },
         methods: {
-            edit(userId){
+            edit (userId) {
                 this.selectedUser = this.users[userId];
             },
-            add(){
+            add () {
 
-            },
+            }
         }
 
     };

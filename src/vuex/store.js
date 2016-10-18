@@ -15,7 +15,7 @@ export default new Vuex.Store({
         home,
         login,
         common,
-        management,
+        management
     },
-    strict: true,
+    strict: true
 });

@@ -3,24 +3,23 @@
  */
 import types from '../../vuex/types';
 
-
 export default {
     state: {
         message: {
             type: '',
             content: '',
-            title: '',
-        },
+            title: ''
+        }
     },
     mutations: {
-        [types.SHOW_MESSAGE] (state,action){
+        [types.SHOW_MESSAGE] (state, action) {
             state.message = {action};
         },
-        [types.HIDE_MESSAGE] (state,action){
+        [types.HIDE_MESSAGE] (state) {
             state.message = {
                 type: '',
                 content: '',
-                title: '',
+                title: ''
             };
         }
     }

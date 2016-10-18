@@ -12,7 +12,7 @@ module.exports = {
     ],
     debug: true,
     resolve: {
-        extensions: ['', '.js', '.vue','.css']
+        extensions: ['', '.js', '.vue']
     },
     output: {
         path: path.resolve(__dirname,'./dist/'),
@@ -33,14 +33,21 @@ module.exports = {
             { test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&name=fonts/[hash:8].[name].[ext]'}
         ]
     },
-    babel: {
-        presets: ['es2015'],
-        plugins: ['transform-runtime']
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://ebirdnote.cn/ccwcc',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': '/api'
+                }
+            }
+        }
     },
     plugins: [
         new extractTextPlugin('style.css'),
         new htmlWebpackPlugin({
-            title: '我的上手项目',
+            title: '中国水鸟调查',
             favicon: './src/assets/img/favicon.png',
             filename: './index.html',
             template: './index.html',

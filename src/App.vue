@@ -12,6 +12,6 @@
 
     //根组件注册store
     export default{
-        store,
+        store
     };
 </script>

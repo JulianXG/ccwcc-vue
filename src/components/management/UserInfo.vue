@@ -56,22 +56,22 @@
 </template>
 
 <script>
-    import {updateUser,addUser} from './actions';
+    import {updateUser, addUser} from './actions';
 
     export default{
-        data(){
-            return{
+        data () {
+            return {
                 currentUser: {
                     nickname: '',
                     permission: '',
                     checkPoint: '',
-                    password:'',
+                    password: ''
                 }
             };
         },
         props: ['user'],
         vuex: {
-            actions: {updateUser,addUser}
+            actions: {updateUser, addUser}
         }
     };
 </script>

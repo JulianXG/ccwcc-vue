@@ -5,7 +5,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {sync} from 'vuex-router-sync';
-import 'bootstrap/dist/css/bootstrap.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 
 import ConfigRouter from './router';

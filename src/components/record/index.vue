@@ -19,16 +19,16 @@
     import {toggleTab} from '../common/actions';
 
     export default{
-        data(){
-            return{
+        data () {
+            return {
                 tabs: [
-                    {isActive: true,path: '/index/record/bird',name: '鸟类数据'},
-                    {isActive: false,path: '/index/record/flag',name: '旗标数据'},
+                    {isActive: true, path: '/index/record/bird', name: '鸟类数据'},
+                    {isActive: false, path: '/index/record/flag', name: '旗标数据'}
                 ]
             };
         },
         methods: {
-            toggleTab,
+            toggleTab
         }
     };
 </script>

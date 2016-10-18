@@ -3,8 +3,7 @@
  */
 import {StatisticsResource} from '../../resources';
 
-export function initCharts(chart){
-
+export function initCharts (chart) {
     chart.setOption({
         title: { text: '总统计情况图表' },
         tooltip: {},
@@ -12,22 +11,24 @@ export function initCharts(chart){
             data: []
         },
         yAxis: {},
-        legend: { data: ['物种种类','数量']},
+        legend: {
+            data: ['物种种类', '数量']
+        },
         series: [
             {name: '物种种类', type: 'bar', data: []},
-            {name: '数量', type: 'bar',data: []},
+            {name: '数量', type: 'bar', data: []}
         ]
     });
 
-    StatisticsResource.get().then(response =>{
+    StatisticsResource.get().then(response => {
         let titles = [];
         let species = [];
         let quantity = [];
         console.log(JSON.stringify(response.json()));
-        if(response.json().status.code == 666) {
+        if (response.json().status.code === 666) {
             let data = response.json().data;
             console.log(JSON.stringify(data));
-            for(let i in data) {
+            for (let i in data) {
                 console.log(JSON.stringify(data[i]));
                 titles.push(data[i].category);
                 species.push(data[i].speciesCount);
@@ -39,10 +40,10 @@ export function initCharts(chart){
             chart.setOption({
                 xAxis: {data: titles},
                 series: [
-                    {name: '物种种类',data: species},
-                    {name: '数量',data: quantity},
-                ],
+                    {name: '物种种类', data: species},
+                    {name: '数量', data: quantity}
+                ]
             });
         }
     });
-};
+}

@@ -42,24 +42,24 @@
     import {toggleTab} from './actions';
 
     export default{
-        data(){
-            return{
+        data () {
+            return {
                 tabs: [
-                    {isActive: true,path: '/index/home',name: '主页'},
-                    {isActive: false,path: '/index/statistics',name: '统计'},
-                    {isActive: false,path: '/index/record/bird',name: '数据录入'},
-                    {isActive: false,path: '/index/management',name: '人员管理'},
+                    {isActive: true, path: '/index/home', name: '主页'},
+                    {isActive: false, path: '/index/statistics', name: '统计'},
+                    {isActive: false, path: '/index/record/bird', name: '数据录入'},
+                    {isActive: false, path: '/index/management', name: '人员管理'}
                 ]
             };
         },
         vuex: {
             getters: {
-                user: getUser,
+                user: getUser
             },
             actions: {logoff}
         },
         methods: {
-            toggleTab,
+            toggleTab
         }
     };
 </script>

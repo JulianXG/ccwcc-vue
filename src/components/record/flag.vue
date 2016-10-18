@@ -74,12 +74,12 @@
     import {addFlag} from './actions';
 
     export default{
-        data(){
-            return{
+        data () {
+            return {
                 tooltip: {
                     colorBands: '填写对应颜色颜色单词的首字母：l=Lime Green band石灰绿环；g=Green band绿环；r=Red band红环；b=Blue band蓝环;y=Yellowband黄环；w=White band白环；',
                     flagColor: 'B=Black Flag黑旗标；O=Orange Flag 橙旗标；W=White flag白旗标；Y=Yellow flag黄旗标；R=Red flag红旗标；G=Green flag绿旗标',
-                    datetime: '如其格式如：2016-1-1 1:11:11',
+                    datetime: '如其格式如：2016-1-1 1:11:11'
                 },
                 flag: {
                     code: '',
@@ -89,14 +89,14 @@
                     flagCode: '',
                     discoveredTime: '',
                     note: '',
-                    observer: '',
+                    observer: ''
                 }
             };
         },
         vuex: {
             actions: {addFlag}
         },
-        ready(){
+        ready () {
             $('[data-toggle = tooltip]').tooltip();
         }
     };

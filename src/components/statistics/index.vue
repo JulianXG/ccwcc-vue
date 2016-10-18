@@ -9,14 +9,14 @@
     import {initCharts} from './actions';
 
     export default{
-        data(){
-            return{
+        data () {
+            return {
             };
         },
         vuex: {
             actions: {initCharts}
         },
-        ready() {
+        ready () {
             var allChart = echarts.init(document.getElementById('allChart'));
             initCharts(allChart);
         }

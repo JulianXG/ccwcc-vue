@@ -3,21 +3,17 @@
  */
 import types from '../../vuex/types';
 
-export function toggleTab(index) {
+export function toggleTab (index) {
     let tabs = this.tabs;
-    for(let i = 0;i < tabs.length;i++) {
-        if(i == index){
-            tabs[i].isActive = true;
-        }else {
-            tabs[i].isActive = false;
-        }
+    for (let i = 0; i < tabs.length; i++) {
+        tabs[i].isActive = i === index;
     }
 }
 
-export function showMessage({dispatch},content,type = 'error') {
+export function showMessage ({dispatch}, content, type = 'error') {
     dispatch(types.SHOW_MESSAGE, {content: content, type: type});
-};
+}
 
-export function hideMessage({dispatch}) {
+export function hideMessage ({dispatch}) {
     dispatch(types.HIDE_MESSAGE);
-};
+}

@@ -1,27 +1,27 @@
 /**
  * Created by Julian on 2016/8/17.
  */
-import {isLogin,getToken} from './vuex/getters';
+import {isLogin} from './vuex/getters';
 import store from './vuex/store';
 
 export default function (router) {
     router.map({
         '/index': {
             name: 'index',
-            component: require('./components'),
+            component: require('./components/index.vue'),
             auth: true,         //标记是否需要登录验证的属性
             subRoutes: {
                 '/home': {
                     name: 'home',
-                    component: require('./components/home')
+                    component: require('./components/home/index.vue')
                 },
                 '/statistics': {
                     name: 'statistics',
-                    component: require('./components/statistics')
+                    component: require('./components/statistics/index.vue')
                 },
                 '/record': {
                     name: 'record',
-                    component: require('./components/record'),
+                    component: require('./components/record/index.vue'),
                     subRoutes: {
                         '/bird': {
                             name: 'bird',
@@ -35,36 +35,36 @@ export default function (router) {
                 },
                 '/management': {
                     name: 'management',
-                    component: require('./components/management')
+                    component: require('./components/management/index.vue')
                 },
                 '/user': {
                     name: 'user',
-                    component: require('./components/user')
+                    component: require('./components/user/index.vue')
                 }
             }
         },
         '/login': {
             name: 'login',
-            component: require('./components/login'),
+            component: require('./components/login/index.vue')
         },
         '*': {
-            component: require('./components/common/NotFound')
-        },
+            component: require('./components/common/NotFound.vue')
+        }
 
     });
 
     // 做验证跳转，判断是否需要验证登录
-    router.beforeEach((transition)=> {
+    router.beforeEach((transition) => {
         if (transition.to.auth) {
-            if(isLogin(store.state)){
+            if (isLogin(store.state)) {
                 //请求需要登录验证页面，并已经登录
                 transition.next();
-            }else {
+            } else {
                 //没有登录，重定向到登录界面
-                let redirect = encodeURIComponent(transition.to.path);
+                // let redirect = encodeURIComponent(transition.to.path);
                 transition.redirect({name: 'login'});
             }
-        }else {
+        } else {
             //请求不需要登录界面
             transition.next();
         }
