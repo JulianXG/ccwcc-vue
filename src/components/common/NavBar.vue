@@ -1,62 +1,78 @@
 <template>
-    <div>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="sr-only">切换导航栏</span>
-                        <span class="icon-bar" v-for="n in 3"></span>
-                    </button>
-                    <a v-link="{name: 'index'}" class="navbar-brand">后台管理系统</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <!--导航的tab选项卡-->
-                        <li v-for="tab in tabs"
-                            :class="{'active':tab.isActive}"
-                            track-by="$index" @click="toggleTab($index)">
-                            <a v-link="tab.path">{{tab.name}}</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                <span class="glyphicon glyphicon-user"></span> {{user.nickname}}<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index.html#/index/user">用户中心</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li @click="logoff"><a href="javascript:void(0)">退出</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <!--上方系统信息栏-->
+    <Menu mode="horizontal" :theme="{{theme}}">
+        <Row>
+            <i-col span="18">
+                <img src="../../assets/img/favicon.png">
+                {{systemName}}
+            </i-col>
+            <i-col span="6">
+                <Submenu key="1">
+                    <template slot="title">
+                        <Icon type="android-person"></Icon>
+                        {{user.nickname}}
+                    </template>
+                    <Menu-item key="1-1" @click="logout">
+                        退出登录
+                    </Menu-item>
+                </Submenu>
+            </i-col>
+        </Row>
+    </Menu>
+
+    <!--左侧导航栏-->
+    <Row>
+        <i-col span="8">
+            <Menu :theme="{{theme}}" active-key="1">
+                <Menu-item key="1" v-link="/index/home">
+                    <Icon type="home"></Icon>
+                    首页
+                </Menu-item>
+                <Menu-group title="数据收集">
+                    <Menu-item key="2" v-link="/index/dc/bird">
+                        <Icon type="android-list"></Icon>
+                        鸟类数据
+                    </Menu-item>
+                    <Menu-item key="3" v-link="/index/dc/flag">
+                        <Icon type="flag"></Icon>
+                        旗标数据
+                    </Menu-item>
+                </Menu-group>
+                <Menu-group title="数据可视化">
+                    <Menu-item key="4" v-link="/index/statistics">
+                        <Icon type="stats-bars"></Icon>
+                        近期统计
+                    </Menu-item>
+                </Menu-group>
+                <Menu-group title="用户管理">
+                    <Menu-item key="5" v-link="/index/management">
+                        <Icon type="android-person"></Icon>
+                        新增用户
+                    </Menu-item>
+                </Menu-group>
+            </Menu>
+        </i-col>
+        <div>这是测试的正文内容</div>
+    </Row>
 </template>
 
 <script>
-    import {logoff} from '../login/actoins';
+    import {logout} from '../login/actoins';
     import {getUser} from '../../vuex/getters';
     import {toggleTab} from './actions';
 
     export default{
         data () {
             return {
-                tabs: [
-                    {isActive: true, path: '/index/home', name: '主页'},
-                    {isActive: false, path: '/index/statistics', name: '统计'},
-                    {isActive: false, path: '/index/record/bird', name: '数据录入'},
-                    {isActive: false, path: '/index/management', name: '人员管理'}
-                ]
+                theme: 'light',
+                systemName: '中国水鸟调查后台管理系统'
             };
         },
         vuex: {
             getters: {
                 user: getUser
             },
-            actions: {logoff}
+            actions: {logout}
         },
         methods: {
             toggleTab

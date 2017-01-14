@@ -10,6 +10,8 @@ export const getUser = state => state.login.user;
 
 export const getUserList = state => state.management.users;
 
-export const getToken = state => state.login.user.token;
+export const getToken = state => state.login.token.token;
 
 export const getMessage = state => state.common.message;
+
+export const getLoginLoading = state => state.login.loginLoading;

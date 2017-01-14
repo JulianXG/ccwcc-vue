@@ -7,32 +7,26 @@ import VueResource from 'vue-resource';
 import store from '../vuex/store';
 import {isLogin, getToken} from '../vuex/getters';
 
-var token = null;
+let token = null;
 Vue.use(VueResource);
 
 //vue-resource拦截器
 Vue.http.interceptors.push((request, next) => {
     if (!isLogin(store.state)) {
         request.headers = {
-            'os': navigator.appCodeName,
-            'osVersion': navigator.appVersion,
-            'deviceModel': navigator.platform,
             'Content-Type': 'application/json'
         };
     } else {
         token = getToken(store.state);
         console.log('token:' + token);
         request.headers = {
-            'os': navigator.appCodeName,
-            'osVersion': navigator.appVersion,
-            'deviceModel': navigator.platform,
             'Content-Type': 'application/json',
             'token': token
         };
     }
 
     next(response => {
-        if (response.status !== 200 || response.json().status.code === 666) {
+        if (response.status !== 200 || response.json().code !== 200) {
             console.log('服务器请求失败，请联系开发人员。');
         }
     });

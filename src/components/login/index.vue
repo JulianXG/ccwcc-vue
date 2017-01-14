@@ -1,24 +1,27 @@
 <template>
-    <div>
+    <div class="login-body">
         <form class="form-signin">
+            <h1>中国水鸟调查</h1>
             <h2>后台管理系统</h2>
-            <input v-model="user.userName"
-                   type="text"
-                   class="form-control"
-                   placeholder="用户名"
-                   required autofocus>
+            <i-input :value.sync="user.username"
+                     icon="person"
+                     type="text"
+                     placeholder="请输入用户名"
+                     required autofocus></i-input>
 
-            <input v-model="user.password"
-                   type="password"
-                   id="inputPassword"
-                   class="form-control"
-                   placeholder="密码" required>
+            <i-input :value.sync="user.password"
+                     icon="locked"
+                     type="password"
+                     id="inputPassword"
+                     placeholder="请输入密码" required></i-input>
 
-            <button @click="login(user)"
-                    @keydown.enter="login(user)"
-                    class="btn btn-lg btn-primary btn-block"
-                    type="submit">登录</button>
+            <i-button @click="login(user)"
+                      class="form-login"
+                      style="width: 100%;"
+                      @keyup.enter="login(user)"
+                      type="primary">登录</i-button>
         </form>
+        <footer-bar></footer-bar>
     </div>
 </template>
 
@@ -26,15 +29,20 @@
     import {login} from './actoins';
     import {isLogin} from '../../vuex/getters';
     import store from '../../vuex/store';
+    import FooterBar from '../common/FooterBar.vue';
 
     export default{
+        components: { FooterBar },
         data () {
             return {
-                user: { userName: '', password: '' }
+                user: {username: '', password: ''},
+                loginStatus: true
             };
         },
         vuex: {
-            actions: {login},
+            actions: {
+                login
+            },
             getters: {isLogin}
         },
         route: {
@@ -44,43 +52,45 @@
                 } else {
                     transition.next();
                 }
+            },
+            data: () => {
+                document.title = '登录';
             }
         }
     };
 </script>
 
 <style>
-    h2{
+    .login-body {
+        width:100%;
+        height:100%;
+        position: fixed;
+        background: #0099CC;
+    }
+    h1, h2{
         text-align: center;
         margin-bottom: 20px;
     }
-    .form-signin{
-        max-width: 330px;
-        padding: 15px;
-        margin:0 auto;
+    .form-signin {
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.95);
+        width: 375px;
+        padding: 35px;
+        margin: 100px 100px 0 0;
+        float: right;
+        height: 400px;
     }
-    .form-signin .form-control{
-        position: relative;
-        height:auto;
-        padding: 10px;
-        font-size: 16px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+    .form-signin input{
+        height: 36px;
     }
     .form-signin input[type="text"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
+        margin-bottom: 8px;
     }
     .form-signin input[type="password"] {
         margin-bottom: 20px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
     }
-    body{
-        padding-top: 40px;
-        padding-bottom: 40px;
-        font-family:"Microsoft YaHei UI",serif;
+    .form-login {
+        width:100%;
+        height:40px;
     }
 </style>

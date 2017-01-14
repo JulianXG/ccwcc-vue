@@ -38,6 +38,10 @@
         margin-top:20px;
         margin-left:20px;
     }
+    .row {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
     /* Custom Styles */
     ul.nav-tabs{
         width: 140px;
@@ -71,5 +75,8 @@
     }
     ul.nav-tabs.affix{
         top: 30px; /* Set the top position of pinned element */
+    }
+    .row {
+        padding-top: 40px;
     }
 </style>

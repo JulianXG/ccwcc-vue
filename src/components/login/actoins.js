@@ -3,33 +3,27 @@
  */
 import types from '../../vuex/types';
 import {LoginResource} from '../../resources';
-import {getToken} from '../../vuex/getters';
 
 export function login ({dispatch, router, state}, loginUser) {
+    this.$Loading.start();
     LoginResource.save(loginUser).then(response => {
-        if (response.json().status.code === 666) {
+        if (response.json().code === 200) {
+            this.$Loading.finish();
             let data = response.json().data;
-            dispatch(types.ADD_USER, data);
+            dispatch(types.ADD_USER, data.user);
+            dispatch(types.ADD_TOKEN, data.token);
             router.go({name: 'home'});
-            document.cookie = 'jsessionid=' + getToken(state);
-            // let action = {
-            //     type: 'success',
-            //     content: '登录成功',
-            //     title: '信息',
-            // };
-            dispatch(types.SHOW_MESSAGE, '登陆成功');
         } else {
-            console.log('用户名或密码错误');
+            this.$Loading.error();
+            this.$Notice.error({
+                title: '用户名或密码错误',
+                desc: ''
+            });
         }
     });
 }
 
-export function logoff ({dispatch, router}) {
+export function logout ({dispatch, router}) {
     dispatch(types.LOG_OFF);
     router.go('/login');
-}
-
-export function testLogin ({dispatch, router}) {
-    dispatch(types.ADD_USER, {nickname: 'kalyter'});
-    router.go({path: '/index/home'});
 }

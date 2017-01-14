@@ -1,7 +1,7 @@
 <template>
     <div>
-        <nav-bar></nav-bar>
         <router-view keep-alive></router-view>
+        <nav-bar :system-name="systemName"></nav-bar>
         <footer-bar></footer-bar>
     </div>
 </template>
@@ -9,21 +9,16 @@
 <script>
     import NavBar from './common/NavBar';
     import FooterBar from './common/FooterBar';
-    import {isLogin} from '../vuex/getters';
 
     export default{
+        data () {
+            return {
+                systemName: '中国水鸟调查后台管理系统'
+            };
+        },
         components: { NavBar, FooterBar },
-        vuex: {
-            getters: {
-                isLogin
-            }
+        ready () {
+            document.title = this.systemName;
         }
     };
 </script>
-
-<style>
-    html{
-        position: relative;
-        min-height:100%;
-    }
-</style>

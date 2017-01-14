@@ -5,7 +5,8 @@ import types from '../../vuex/types';
 
 export default {
     state: {
-        user: null
+        user: null,
+        token: null
     },
     mutations: {
         [types.ADD_USER] (state, user) {
@@ -13,6 +14,9 @@ export default {
         },
         [types.LOG_OFF] (state) {
             state.user = null;
+        },
+        [types.ADD_TOKEN] (state, token) {
+            state.token = token;
         }
     }
 };

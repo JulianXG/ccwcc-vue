@@ -85,7 +85,6 @@
             };
         },
         ready () {
-            $('[data-toggle = tooltip]').tooltip();
         },
         vuex: {
             actions: {addBird}

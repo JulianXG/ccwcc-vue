@@ -1,8 +1,8 @@
 /**
  * Created by Julian on 2016/8/20.
  */
-// const API_ROOT = 'http://ebirdnote.cn/ccwcc/api';
-// const API_ROOT = ''http://localhost:8080/ccwcc/api'';
+// const API_ROOT = 'http://ccwcc.kalyter.cn/api';
+const API_ROOT = 'http://localhost:8080/api';
 
 export default {
 
@@ -24,7 +24,7 @@ export default {
     //
     // USER_ADD: API_ROOT + '/user',
 
-    LOGIN: '/api/user/login',
+    LOGIN: API_ROOT + '/role_user/user/login',
 
     STATISTICS_TOTAL: '/api/statistics/total',
 

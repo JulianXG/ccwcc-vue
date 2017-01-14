@@ -22,15 +22,29 @@ module.exports = {
         formatter: require('eslint-friendly-formatter')
     },
     module: {
-        preLoaders:[
+        preLoaders: [
             { test: /\.vue$/, loader: 'eslint', exclude: /node_modules/ },
-            { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ },
+            { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
         ],
         loaders: [
-            { test: /\.css$/, loader: extractTextPlugin.extract('style-loader','css-loader?sourceMap')},
-            { test: /\.vue$/, loader: 'vue-loader' },
-            { test: /\.js$/, loader: 'babel', exclude: /node_modules|vue\/dist|vue-hot-reload-api|vue-router\/|vue-loader/},
-            { test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&name=fonts/[hash:8].[name].[ext]'}
+            // { test: /\.css$/, loader: extractTextPlugin.extract('style-loader','css-loader?sourceMap')},
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                exclude: /node_modules|vue\/dist|vue-hot-reload-api|vue-router\/|vue-loader/
+            },
+            {
+                test: /\.(jpeg|png|jpg|woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url?limit=10000&name=fonts/[hash:8].[name].[ext]'
+            }
         ]
     },
     devServer: {
@@ -62,10 +76,7 @@ module.exports = {
             compress: {
                 warnings: false
             }
-        }),
-        new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery'
         })
     ]
 };
+

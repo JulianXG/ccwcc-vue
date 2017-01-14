@@ -8,20 +8,23 @@ export default function (router) {
     router.map({
         '/index': {
             name: 'index',
-            component: require('./components/index.vue'),
+            component: require('./components/frame/index.vue'),
             auth: true,         //标记是否需要登录验证的属性
             subRoutes: {
                 '/home': {
                     name: 'home',
                     component: require('./components/home/index.vue')
                 },
-                '/statistics': {
-                    name: 'statistics',
-                    component: require('./components/statistics/index.vue')
+                '/visualization': {
+                    name: 'visualization',
+                    component: require('./components/visualization/index.vue'),
+                    subRoutes: {
+
+                    }
                 },
-                '/record': {
-                    name: 'record',
-                    component: require('./components/record/index.vue'),
+                '/dc': {
+                    name: 'dc',
+                    component: require('./components/frame/index.vue'),
                     subRoutes: {
                         '/bird': {
                             name: 'bird',

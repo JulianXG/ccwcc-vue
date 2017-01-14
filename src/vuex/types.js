@@ -9,7 +9,7 @@ export default {
 
     SET_USERS: 'SET_USERS',
 
-    SHOW_MESSAGE: 'SHOW_MESSAGE',
+    HIDE_MESSAGE: 'HIDE_MESSAGE',
 
-    HIDE_MESSAGE: 'HIDE_MESSAGE'
+    ADD_TOKEN: 'ADD_TOKEN'
 };

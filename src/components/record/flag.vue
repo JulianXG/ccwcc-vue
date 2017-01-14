@@ -95,9 +95,6 @@
         },
         vuex: {
             actions: {addFlag}
-        },
-        ready () {
-            $('[data-toggle = tooltip]').tooltip();
         }
     };
 </script>

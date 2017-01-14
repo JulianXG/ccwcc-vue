@@ -21,7 +21,10 @@
                     <th>用户名</th>
                     <th>昵称</th>
                     <th>权限
-                        <span data-toggle="tooltip" data-placement="right" title="注:233为管理员，100为普通人员" class="glyphicon glyphicon-exclamation-sign"></span>
+                        <span data-toggle="tooltip"
+                              data-placement="right"
+                              title="注:233为管理员，100为普通人员"
+                              class="glyphicon glyphicon-exclamation-sign"></span>
                     </th>
                     <th>检查地</th>
                     <th>操作</th>
@@ -33,10 +36,15 @@
                     <td>{{user.permission}}</td>
                     <td>{{user.checkPoint}}</td>
                     <td>
-                        <button @click="edit($index)" type="button" class="btn-primary btn btn-xs" data-toggle="modal" data-target="#userInfo">
+                        <button @click="edit($index)"
+                                type="button" class="btn-primary btn btn-xs"
+                                data-toggle="modal" data-target="#userInfo">
                             <span class="glyphicon glyphicon-pencil"></span> 编辑
                         </button>
-                        <button @click="removeUser(user.id)" type="button" class="btn-danger btn btn-xs"><span class="glyphicon glyphicon-remove"></span> 删除</button>
+                        <button @click="removeUser(user.id)"
+                                type="button" class="btn-danger btn btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span> 删除
+                        </button>
                     </td>
                 </tr>
             </table>
@@ -64,7 +72,6 @@
             }
         },
         ready () {
-            $('[data-toggle = tooltip]').tooltip();
             this.initUsers();
         },
         methods: {
@@ -82,7 +89,5 @@
 <style>
     #tableContainer{
         margin-top: 50px;
-        padding-left: 0px;
-        padding-right: 0px;
     }
 </style>
