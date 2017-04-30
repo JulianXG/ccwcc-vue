@@ -47,17 +47,6 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        proxy: {
-            '/api': {
-                target: 'http://ebirdnote.cn/ccwcc',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': '/api'
-                }
-            }
-        }
-    },
     plugins: [
         new extractTextPlugin('style.css'),
         new htmlWebpackPlugin({

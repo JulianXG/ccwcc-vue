@@ -4,48 +4,49 @@
 import ServerAPI from './ServerAPI';
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import store from '../vuex/store';
-import {isLogin, getToken} from '../vuex/getters';
+import Util from '../util';
+import Config from '../config';
+import {Message} from 'iview';
 
-let token = null;
 Vue.use(VueResource);
 
 //vue-resource拦截器
 Vue.http.interceptors.push((request, next) => {
-    if (!isLogin(store.state)) {
-        request.headers = {
-            'Content-Type': 'application/json'
-        };
-    } else {
-        token = getToken(store.state);
-        console.log('token:' + token);
-        request.headers = {
-            'Content-Type': 'application/json',
-            'token': token
-        };
+    let token = Util.getCookie(Config.COOKIE_TOKEN);
+    let headers = {'Content-Type': 'application/json'};
+    if (token !== null) {
+        headers.token = token;
     }
+    request.headers = headers;
 
     next(response => {
-        if (response.status !== 200 || response.json().code !== 200) {
-            console.log('服务器请求失败，请联系开发人员。');
+        if (response.json().code === Config.CODE_NO_PERMISSION) {
+            console.log('没有权限');
+            Message.error('权限不够，请求出错！');
+        } else if (response.json().code !== Config.CODE_SUCCESS) {
+            Message.error('服务器请求出错！');
         }
     });
 });
 
-Vue.http.options.xhr = { withCredentials: true };
+export const UserPaginationResource = Vue.resource(ServerAPI.USER_PAGINATION);
 
-export const UserTotalResource = Vue.resource(ServerAPI.USER_TOTAL);
+export const UsersResource = Vue.resource(ServerAPI.USERS);
+
+export const DeleteUserResource = Vue.resource(ServerAPI.DELETE_USER);
 
 export const LoginResource = Vue.resource(ServerAPI.LOGIN);
 
-export const RemoveUserResource = Vue.resource(ServerAPI.REMOVE_USER + '{/id}');
+export const BirdBriefResource = Vue.resource(ServerAPI.BIRD_BRIEF);
 
-export const StatisticsResource = Vue.resource(ServerAPI.STATISTICS_TOTAL);
+export const BirdRecordResource = Vue.resource(ServerAPI.BIRD_RECORD_SUBMIT);
 
-export const BirdSubmitResource = Vue.resource(ServerAPI.BIRD_RECORD_SUBMIT);
+export const BirdSubmitResource = Vue.resource(ServerAPI.BIRD_SUBMIT);
 
 export const FlagSubmitResource = Vue.resource(ServerAPI.FLAG_RECORD_SUBMIT);
 
-export const UserUpdateResource = Vue.resource(ServerAPI.UPDATE_USER + '{/id}');
+export const CheckpointBrief = Vue.resource(ServerAPI.CHECKPOINT_BRIEF);
 
-export const UserAddResource = Vue.resource(ServerAPI.USER_ADD);
+export const DownloadResource = Vue.resource(ServerAPI.RECORD_DOWNLOAD_RESOURCE);
+
+export const SearchResource = Vue.resource(ServerAPI.SEARCH_RESOURCE);

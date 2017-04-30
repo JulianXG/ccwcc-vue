@@ -1,8 +1,8 @@
 /**
  * Created by Julian on 2016/8/17.
  */
-import {isLogin} from './vuex/getters';
-import store from './vuex/store';
+import Util from './util';
+import Config from './config';
 
 export default function (router) {
     router.map({
@@ -13,63 +13,77 @@ export default function (router) {
             subRoutes: {
                 '/home': {
                     name: 'home',
-                    component: require('./components/home/index.vue')
+                    component: require('./components/home.vue')
                 },
-                '/visualization': {
+                '/visual/data': {
                     name: 'visualization',
-                    component: require('./components/visualization/index.vue'),
-                    subRoutes: {
-
-                    }
+                    component: require('./components/visualization/statistics.vue')
                 },
-                '/dc': {
-                    name: 'dc',
-                    component: require('./components/frame/index.vue'),
-                    subRoutes: {
-                        '/bird': {
-                            name: 'bird',
-                            component: require('./components/record/bird.vue')
-                        },
-                        '/flag': {
-                            name: 'flag',
-                            component: require('./components/record/flag.vue')
-                        }
-                    }
+                '/visual/map': {
+                    name: 'mapVisual',
+                    component: require('./components/visualization/mapVisual.vue')
                 },
-                '/management': {
-                    name: 'management',
-                    component: require('./components/management/index.vue')
+                '/management/birdRecord': {
+                    name: 'birdRecord',
+                    component: require('./components/management/bird-record.vue')
                 },
-                '/user': {
+                '/management/bird': {
+                    name: 'bird',
+                    component: require('./components/management/bird.vue')
+                },
+                '/management/flag': {
+                    name: 'flag',
+                    component: require('./components/management/flag-record.vue')
+                },
+                '/management/user': {
                     name: 'user',
-                    component: require('./components/user/index.vue')
+                    component: require('./components/management/user.vue')
+                },
+                '/authError': {
+                    name: 'authError',
+                    component: require('./components/error/AuthError.vue')
+                },
+                '/serverError': {
+                    name: 'serverError',
+                    component: require('./components/error/ServerError.vue')
+                },
+                '/changeLog': {
+                    component: require('./components/change-log.vue')
+                },
+                '/search': {
+                    name: 'search',
+                    component: require('./components/search')
                 }
             }
         },
         '/login': {
             name: 'login',
-            component: require('./components/login/index.vue')
+            component: require('./components/login.vue')
         },
         '*': {
-            component: require('./components/common/NotFound.vue')
+            component: require('./components/error/NotFound.vue')
         }
-
     });
 
-    // 做验证跳转，判断是否需要验证登录
+    // 做验证跳转，判断是否登录
     router.beforeEach((transition) => {
-        if (transition.to.auth) {
-            if (isLogin(store.state)) {
-                //请求需要登录验证页面，并已经登录
-                transition.next();
+        let token = Util.getCookie(Config.COOKIE_TOKEN);
+        if (token !== '') {
+            // 暂时认为cookie过期由游览器主动控制
+            // 请求需要登录验证页面，cookie中包含登录信息
+            if (transition.to.path === '/login') {
+                transition.redirect({name: 'home'});
             } else {
-                //没有登录，重定向到登录界面
-                // let redirect = encodeURIComponent(transition.to.path);
-                transition.redirect({name: 'login'});
+                transition.next();
             }
         } else {
-            //请求不需要登录界面
-            transition.next();
+            //没有登录，重定向到登录界面
+            // let redirect = encodeURIComponent(transition.to.path);
+            if (transition.to.path !== '/login') {
+                transition.redirect({path: '/login'});
+            } else {
+                transition.next();
+            }
         }
     });
 
