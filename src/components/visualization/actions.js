@@ -40,6 +40,6 @@ export function mockData (base = 10000) {
 export function getCheckpointBrief () {
     CheckpointBrief.get()
         .then(response => {
-            this.checkpointBrief = response.json().data.result;
+            this.checkpointBrief = response.json().data;
         });
 }

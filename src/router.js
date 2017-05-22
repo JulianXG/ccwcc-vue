@@ -68,11 +68,11 @@ export default function (router) {
     // 做验证跳转，判断是否登录
     router.beforeEach((transition) => {
         let token = Util.getCookie(Config.COOKIE_TOKEN);
-        if (token !== '') {
+        if (token !== null && token !== '') {
             // 暂时认为cookie过期由游览器主动控制
             // 请求需要登录验证页面，cookie中包含登录信息
             if (transition.to.path === '/login') {
-                transition.redirect({name: 'home'});
+                transition.redirect({path: '/index/home'});
             } else {
                 transition.next();
             }

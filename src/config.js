@@ -4,8 +4,10 @@
  */
 export default {
     CODE_SUCCESS: 200,
+    CODE_USERNAME_OR_PASSWORD_ERROR: 400,
     CODE_NO_PERMISSION: 403,
     CODE_USERNAME_EXISTS: 404,
+    CODE_CHECKPOINT_ERROR: 405,
     COOKIE_NICKNAME: 'user',
     COOKIE_TOKEN: 'token',
     COOKIE_CHECKPOINT: 'checkpoint',
@@ -31,11 +33,12 @@ export default {
     ],
     getCheckpoint (id) {
         if (id !== '') {
-            return this.CHECKPOINTS.filter(element => {
+            let filter = this.CHECKPOINTS.filter(element => {
                 if (element.id === parseInt(id)) {
                     return true;
                 }
-            })[0].name;
+            });
+            return filter[0].name;
         }
     },
     MSG_SUBMITTING: '正在向服务器提交数据……',
@@ -43,5 +46,6 @@ export default {
     MSG_SUBMIT_ERROR: '提交失败，请重试',
     MSG_VALIDATE_ERROR: '表单验证失败！',
     MSG_SUCCESS: '操作成功',
+    MSG_FAIL: '操作失败',
     MSG_LOADING: '正在加载中……'
 };

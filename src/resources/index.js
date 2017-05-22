@@ -6,7 +6,7 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import Util from '../util';
 import Config from '../config';
-import {Message} from 'iview';
+import { Modal } from 'iview';
 
 Vue.use(VueResource);
 
@@ -21,10 +21,15 @@ Vue.http.interceptors.push((request, next) => {
 
     next(response => {
         if (response.json().code === Config.CODE_NO_PERMISSION) {
-            console.log('没有权限');
-            Message.error('权限不够，请求出错！');
+            Modal.error({
+                title: '出错',
+                content: '权限不够，请求出错！'
+            });
         } else if (response.json().code !== Config.CODE_SUCCESS) {
-            Message.error('服务器请求出错！');
+            Modal.error({
+                title: '出错',
+                content: '服务器请求出错！'
+            });
         }
     });
 });
@@ -50,3 +55,5 @@ export const CheckpointBrief = Vue.resource(ServerAPI.CHECKPOINT_BRIEF);
 export const DownloadResource = Vue.resource(ServerAPI.RECORD_DOWNLOAD_RESOURCE);
 
 export const SearchResource = Vue.resource(ServerAPI.SEARCH_RESOURCE);
+
+export const CheckpointUserResource = Vue.resource(ServerAPI.CHECKPOINT_USER);

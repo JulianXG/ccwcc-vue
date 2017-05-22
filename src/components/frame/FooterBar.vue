@@ -46,6 +46,8 @@
             <p class="footer-title">
                 手机APP
             </p>
+            <img src="../../assets/img/android_app_qrcode.png"
+                 style="width:96px;height: 96px;">
         </i-col>
     </Row>
     <div class="license">

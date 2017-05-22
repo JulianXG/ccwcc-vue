@@ -30,7 +30,9 @@ export default {
 
     CHECKPOINT_BRIEF: API_ROOT + '/checkpoint/brief',
 
-    RECORD_DOWNLOAD_RESOURCE: API_ROOT + '/role_user/excel/download',
+    RECORD_DOWNLOAD_RESOURCE: API_ROOT + '/excel/download',
 
-    SEARCH_RESOURCE: API_ROOT + '/role_user/excel/search{/page}{/pageSize}'
+    SEARCH_RESOURCE: API_ROOT + '/role_user/excel/search{/page}{/pageSize}',
+
+    CHECKPOINT_USER: API_ROOT + '/checkpoints/user{/userId}'
 };

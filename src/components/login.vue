@@ -55,8 +55,10 @@
                     this.$Message.error('请填写用户名密码');
                 } else {
                     this.$Message.loading('正在登录中...', 0);
-                    loginUser.password = MD5(loginUser.password);
-                    LoginResource.save(loginUser).then(response => {
+                    let userCopy = JSON.parse(JSON.stringify(loginUser));
+                    userCopy.password = MD5(loginUser.password);
+                    userCopy.checkpointId = checkpoint;
+                    LoginResource.save(userCopy).then(response => {
                         this.$Message.destroy();
                         if (response.json().code === 200) {
                             this.$Message.success('登录成功');
@@ -65,8 +67,10 @@
                             Util.setCookie(Config.COOKIE_TOKEN, data.token.token, 1);
                             Util.setCookie(Config.COOKIE_CHECKPOINT, checkpoint, 3);
                             this.$router.go({name: 'home'});
-                        } else {
+                        } else if (response.json().code === Config.CODE_USERNAME_OR_PASSWORD_ERROR) {
                             this.$Message.error('用户名或密码错误');
+                        } else if (response.json().code === Config.CODE_CHECKPOINT_ERROR) {
+                            this.$Message.error('检查地选择错误，此用户不属于此检查地');
                         }
                     });
                 }

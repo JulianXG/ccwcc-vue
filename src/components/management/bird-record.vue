@@ -83,7 +83,7 @@
                         BirdRecordResource.save(JSON.stringify(this.record))
                             .then(response => {
                                 this.$Message.success('提交成功，成功插入' +
-                                    response.json().data.result + '条数据');
+                                    response.json().data + '条数据');
                                 this.$refs[record].resetFields();
                                 this.$Modal.remove();
                             }, () => {
@@ -107,7 +107,7 @@
         ready () {
             BirdBriefResource.get()
                 .then(response => {
-                    this.briefBirds = response.json().data.result;
+                    this.briefBirds = response.json().data;
                 });
         }
     };

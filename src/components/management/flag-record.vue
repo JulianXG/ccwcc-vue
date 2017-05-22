@@ -182,7 +182,7 @@
         ready () {
             BirdBriefResource.get()
                 .then(response => {
-                    this.briefBirds = response.json().data.result;
+                    this.briefBirds = response.json().data;
                 });
         }
     };

@@ -2,7 +2,7 @@
     <div>
         <i-button type="primary" @click="isAddOpen = true">新增用户</i-button>
         <i-table :content="self" :data="data" border
-                 style="width:100%;margin: 8px 0;" :columns="columns" stripe></i-table>
+                 style="margin: 8px 0;" :columns="columns" stripe></i-table>
         <Page :total="total" :current="current"
               @on-change="changePage"
               @on-page-size-change="changePageSize"></Page>
@@ -33,7 +33,7 @@
             </i-form>
         </Modal>
 
-        <Modal :visible.sync="isEditOpen" title="编辑" :mask-closeable="false" :loading="editLoading"
+        <Modal :visible.sync="isEditOpen" title="编辑" :mask-closable="false" :loading="editLoading"
                :scrollable="true" @on-ok="edit(user)">
             <i-form v-ref:user :model="user" :rules="editUserRules" :label-width="80">
                 <Form-item label="用户名" prop="username">
@@ -65,11 +65,20 @@
             </i-form>
         </Modal>
 
+        <Modal :visible.sync="isCheckpointOpen" title="更改检查地信息"
+               :mask-closable="false" placeholder="请选择检查地地址"
+               :scrollable="true" @on-ok="changeCheckpoint(currentUserId, selectCheckpoints)">
+            <i-select :model.sync="selectCheckpoints" filterable multiple>
+                <i-option v-for="checkpoint in checkpoints" :value="checkpoint.id">
+                    {{checkpoint.name}}
+                </i-option>
+            </i-select>
+        </Modal>
     </div>
 </template>
 
 <script>
-    import {UserPaginationResource, UsersResource, DeleteUserResource} from '../../resources/index';
+    import {UserPaginationResource, UsersResource, DeleteUserResource, CheckpointUserResource} from '../../resources/index';
     import Config from '../../config';
     import MD5 from 'md5';
 
@@ -79,8 +88,11 @@
                 self: this,
                 isAddOpen: false,
                 isEditOpen: false,
+                currentUserId: '',
                 addUserLoading: true,
+                isCheckpointOpen: false,
                 editLoading: true,
+                selectCheckpoints: [],
                 columns: [
                     {
                         title: '用户名',
@@ -127,8 +139,16 @@
                         }
                     },
                     {
+                        title: '检查地',
+                        width: 144,
+                        render (row) {
+                            return `<i-button type="info" size="small" @click="openCheckpoint(${row.id})">更改检查地信息</i-button>`;
+                        }
+                    },
+                    {
                         title: 'QQ',
-                        key: 'qq'
+                        key: 'qq',
+                        width: 120
                     },
                     {
                         title: '手机号码',
@@ -155,6 +175,7 @@
                     {
                         title: '登录次数',
                         key: 'loginCount',
+                        width: 100,
                         render (row) {
                             let count = row.loginCount === null ? 0 : row.loginCount;
                             return `<Tag type="border">${count}</Tag>`;
@@ -175,7 +196,16 @@
                 pageSize: 10,
                 current: 1,
                 data: [],
-                user: {},
+                user: {
+                    nickname: '',
+                    username: '',
+                    password: '',
+                    roleId: '',
+                    sex: '',
+                    qq: '',
+                    tel: '',
+                    email: ''
+                },
                 roles: Config.ROLES,
                 checkpoints: Config.CHECKPOINTS,
                 addUserRules: {
@@ -205,7 +235,7 @@
                 this.$Loading.start();
                 UsersResource.get({id: id})
                     .then(response => {
-                        this.user = response.json().data.result;
+                        this.user = response.json().data;
                         this.isEditOpen = true;
                         this.$Loading.finish();
                     }, () => this.$Loading.error());
@@ -283,6 +313,31 @@
                     }
                 });
                 this.user = {};
+            },
+            changeCheckpoint (userId, checkpoints) {
+                let json = JSON.stringify(checkpoints);
+                console.log(json);
+                this.$Loading.start();
+                CheckpointUserResource.save({userId: userId}, json)
+                    .then(response => {
+                        this.$Loading.finish();
+                        this.$Message.success(Config.MSG_SUCCESS);
+                    }, () => {
+                        this.$Loading.error();
+                        this.$Message.error(Config.MSG_FAIL);
+                    });
+            },
+            openCheckpoint (userId) {
+                this.isCheckpointOpen = true;
+                this.currentUserId = userId;
+                CheckpointUserResource.get({userId: userId})
+                    .then(response => {
+                        this.selectCheckpoints = [];
+                        let data = response.json().data;
+                        if (data.length > 0) {
+                            data.forEach(e => this.selectCheckpoints.push(e.checkpointId));
+                        }
+                    });
             }
         },
         ready () {

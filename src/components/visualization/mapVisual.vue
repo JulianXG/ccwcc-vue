@@ -48,7 +48,7 @@
                 CheckpointBrief.get()
                     .then(response => {
                         if (response.json().code === Config.CODE_SUCCESS) {
-                            let checkpoints = response.json().data.result;
+                            let checkpoints = response.json().data;
                             this.handleCheckpoint(checkpoints);
                         }
                     });
@@ -57,10 +57,15 @@
                 console.log(data);
                 let points = [];
                 data.forEach(element => {
-                    points.push({
-                        name: element.name,
-                        value: [element.latitude, element.lontitude, parseInt(Math.random() * 1000)]
-                    });
+//                    for (let i = 0; i < 100; i++) {
+//                        let x = element.latitude + Math.random() * i;
+//                        let y = element.longitude + Math.random() * i;
+//                    }
+                    points.push(
+    //                        name: element.name,
+    //                        value: [element.latitude, element.lontitude, parseInt(Math.random() * 1000)]
+                        [x, y, parseInt(Math.random() * 1000)]
+                    );
                 });
                 console.log(points);
                 this.renderMap(points);
