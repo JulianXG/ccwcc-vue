@@ -25,6 +25,8 @@
 <script>
     import {SearchResource} from '../resources';
     import API from '../resources/ServerAPI';
+    import Util from '../util';
+    import Config from '../config';
 
     export default {
         data () {
@@ -35,6 +37,7 @@
                 current: 1,
                 pageSize: 10,
                 total: 10,
+                checkpointId: '',
                 timeRange: [],
                 columns: [
                     {title: '鸟种名称', key: 'name'}
@@ -80,7 +83,11 @@
                     body.startTime = timeRange[0].toLocaleString();
                     body.endTime = timeRange[1].toLocaleString();
                 }
-                SearchResource.save({page: page, pageSize: this.pageSize}, body)
+                SearchResource.save({
+                    checkpointId: this.checkpointId,
+                    page: page,
+                    pageSize: this.pageSize
+                }, body)
                     .then(response => {
                         let rows = response.json().data.rows;
                         if (rows !== null) {
@@ -109,6 +116,7 @@
                     url += '&startTime=' + startTime;
                     url += '&endTime=' + endTime;
                 }
+                url += '&checkpointId=' + this.checkpointId;
                 url = encodeURI(url);
                 console.log(url);
                 // 直接在新标签中打开
@@ -119,6 +127,7 @@
             }
         },
         ready () {
+            this.checkpointId = Util.getCookie(Config.COOKIE_CHECKPOINT);
             this.changePage(1);
         }
     };

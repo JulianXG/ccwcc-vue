@@ -86,15 +86,9 @@
                     isAlive: true
                 },
                 ruleValidate: {
-                    code: [
-                        { required: true, message: '编号不能为空', trigger: 'blur' }
-                    ],
-                    nameZh: [
-                        { required: true, message: '中文名不能为空', trigger: 'blur' }
-                    ],
-                    category: [
-                        { required: true, message: '必须选择一个分类', trigger: 'change' }
-                    ]
+                    code: [{ required: true, message: '编号不能为空', trigger: 'blur' }],
+                    nameZh: [{ required: true, message: '中文名不能为空', trigger: 'blur' }],
+                    category: [{ required: true, message: '必须选择一个分类', trigger: 'change' }]
                 },
                 category: [
                     '雁鸭类',

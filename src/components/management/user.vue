@@ -40,7 +40,7 @@
                     <i-input :value.sync="user.username" disabled placeholder="请输入用户名"></i-input>
                 </Form-item>
                 <Form-item label="昵称" prop="nickname">
-                    <i-input :value.sync="user.nickname" placeholder="请输入昵称"></i-input>
+                    <i-input :value.sync="user.nickname" disabled placeholder="请输入昵称"></i-input>
                 </Form-item>
                 <Form-item label="用户角色" prop="roleId">
                     <i-select :model.sync="user.roleId" placeholder="请选择用户角色">
@@ -48,19 +48,19 @@
                     </i-select>
                 </Form-item>
                 <Form-item label="性别" prop="sex">
-                    <i-select :model.sync="user.sex" placeholder="请选择用户性别">
+                    <i-select :model.sync="user.sex" disabled placeholder="请选择用户性别">
                         <i-option value="MAN">男</i-option>
                         <i-option value="WOMAN">女</i-option>
                     </i-select>
                 </Form-item>
                 <Form-item label="QQ" prop="qq">
-                    <i-input :value.sync="user.qq" placeholder="请输入QQ"></i-input>
+                    <i-input :value.sync="user.qq" disabled placeholder="请输入QQ"></i-input>
                 </Form-item>
                 <Form-item label="手机号码" prop="tel">
-                    <i-input :value.sync="user.tel" placeholder="请输入手机号码"></i-input>
+                    <i-input :value.sync="user.tel" disabled placeholder="请输入手机号码"></i-input>
                 </Form-item>
                 <Form-item label="电子邮箱" prop="email">
-                    <i-input :value.sync="user.email" placeholder="请输入邮箱地址"></i-input>
+                    <i-input :value.sync="user.email" disabled placeholder="请输入邮箱地址"></i-input>
                 </Form-item>
             </i-form>
         </Modal>
@@ -215,7 +215,7 @@
                     roleId: [{required: true, type: 'number', message: '请选择用户角色', trigger: 'blur'}]
                 },
                 editUserRules: {
-                    email: [{required: false, type: 'email', min: 6, max: 20, message: '请填写正确的邮箱地址', trigger: 'blur'}],
+                    email: [{required: true, type: 'email', min: 6, max: 20, message: '请填写正确的邮箱地址', trigger: 'blur'}],
                     nickname: [{required: true, message: '请填写昵称', trigger: 'blur'}],
                     tel: [{required: false, pattern: /^1[34578]\d{9}$/, message: '请填写正确的手机号码', trigger: 'blur'}],
                     qq: [{required: false, pattern: /^\d{5,10}$/, message: '请填写正确的QQ号码', trigger: 'blur'}],

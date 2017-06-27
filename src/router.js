@@ -56,6 +56,14 @@ export default function (router) {
                 }
             }
         },
+        '/register': {
+            name: 'register',
+            component: require('./components/register')
+        },
+        '/forgetPassword': {
+            name: 'forgetPassword',
+            component: require('./components/forget')
+        },
         '/login': {
             name: 'login',
             component: require('./components/login.vue')
@@ -79,10 +87,12 @@ export default function (router) {
         } else {
             //没有登录，重定向到登录界面
             // let redirect = encodeURIComponent(transition.to.path);
-            if (transition.to.path !== '/login') {
-                transition.redirect({path: '/login'});
-            } else {
+            let passArray = ['/register', '/forgetPassword', '/login'];
+            let number = passArray.indexOf(transition.to.path);
+            if (number > -1) {
                 transition.next();
+            } else {
+                transition.redirect({path: '/login'});
             }
         }
     });

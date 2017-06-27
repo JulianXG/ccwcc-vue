@@ -8,9 +8,11 @@ export default {
     CODE_NO_PERMISSION: 403,
     CODE_USERNAME_EXISTS: 404,
     CODE_CHECKPOINT_ERROR: 405,
+    CODE_USER_UNAVAILABLE: 406,
     COOKIE_NICKNAME: 'user',
     COOKIE_TOKEN: 'token',
     COOKIE_CHECKPOINT: 'checkpoint',
+    COOKIE_ALL_CHECKPOINT: 'allCheckpoint',
     ROLES: [
         {id: 3, name: '普通用户'},
         {id: 2, name: '管理员'},
@@ -31,7 +33,7 @@ export default {
         {id: 11, name: '广东深圳'},
         {id: 12, name: '香港米埔和后海湾'}
     ],
-    getCheckpoint (id) {
+    getCheckpointName (id) {
         if (id !== '') {
             let filter = this.CHECKPOINTS.filter(element => {
                 if (element.id === parseInt(id)) {
@@ -41,11 +43,38 @@ export default {
             return filter[0].name;
         }
     },
+    getCheckpointById (id) {
+        if (id !== '') {
+            let filter = this.CHECKPOINTS.filter(element => {
+                if (element.id === parseInt(id)) {
+                    return true;
+                }
+            });
+            return filter[0];
+        }
+    },
+    parseCheckpoint (checkpoint) {
+        if (checkpoint !== '') {
+            let filter = this.CHECKPOINTS.filter(element => {
+                if (element.name === checkpoint) {
+                    return true;
+                }
+            });
+            return filter[0].id;
+        }
+    },
+    SYSTEM_NAME: '中国水鸟调查数据管理系统',
     MSG_SUBMITTING: '正在向服务器提交数据……',
     MSG_SUBMIT_SUCCESS: '提交成功',
     MSG_SUBMIT_ERROR: '提交失败，请重试',
     MSG_VALIDATE_ERROR: '表单验证失败！',
     MSG_SUCCESS: '操作成功',
     MSG_FAIL: '操作失败',
-    MSG_LOADING: '正在加载中……'
+    MSG_LOADING: '正在加载中……',
+    LOGIN_SUCCESS: '登录成功！',
+    CHECKPOINT_ERROR: '请登录正确的检查地！',
+    LOGIN_FAIL: '用户名或密码错误',
+    USER_UNAVAILABLE: '该用户未激活，快去激活吧！',
+    CHECK_ERROR: '验证出错',
+    CHANGE_PASSWORD_ERROR: '更改密码出错，请重试'
 };

@@ -52,18 +52,8 @@
                         }
                     ],
                     yAxis: [
-                        {
-                            type: 'value',
-                            name: '数量',
-                            min: 0,
-                            interval: 50
-                        },
-                        {
-                            type: 'value',
-                            name: '数量',
-                            min: 0,
-                            interval: 5
-                        }
+                        {type: 'value', name: '数量', min: 0, interval: 50},
+                        {type: 'value', name: '数量', min: 0, interval: 5}
                     ],
                     series: [
                         {

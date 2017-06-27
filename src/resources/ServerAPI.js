@@ -1,16 +1,17 @@
 /**
  * Created by Julian on 2016/8/20.
  */
+const API_ROOT = 'http://ccwcc.ebirdnote.cn/api';
 // const API_ROOT = 'http://ccwcc.kalyter.cn/api';
-const API_ROOT = 'http://localhost:8080/api';
+// const API_ROOT = 'http://localhost:8080/api';
 // const API_ROOT = 'http://172.16.124.50:8080/api';
 
 export default {
     LOGIN: API_ROOT + '/login',
 
-    REGISTER: API_ROOT + '/register',
-
     USERS: API_ROOT + '/role_root/users{/id}',
+
+    REGISTER: API_ROOT + '/users',
 
     DELETE_USER: API_ROOT + '/role_root/users/delete{/id}',
 
@@ -32,7 +33,17 @@ export default {
 
     RECORD_DOWNLOAD_RESOURCE: API_ROOT + '/excel/download',
 
-    SEARCH_RESOURCE: API_ROOT + '/role_user/excel/search{/page}{/pageSize}',
+    SEARCH_RESOURCE: API_ROOT + '/role_user/excel/search{/checkpointId}{/page}{/pageSize}',
 
-    CHECKPOINT_USER: API_ROOT + '/checkpoints/user{/userId}'
+    CHECKPOINT_USER: API_ROOT + '/checkpoints/user{/userId}',
+
+    SEND_VALIDATE_CODE_RESOURCE: API_ROOT + '/validate_code/send{/userId}{/validateCode}',
+
+    VERIFY_VALIDATE_CODE_RESOURCE: API_ROOT + '/validate_code/verify{/userId}{/code}',
+
+    CHECK_USERNAME_RESOURCE: API_ROOT + '/username/check{/username}',
+
+    CHECK_USERNAME_EMAIL: API_ROOT + '/username_email',
+
+    CHANGE_PASSWORD: API_ROOT + '/forgetPassword{/userId}{/password}'
 };

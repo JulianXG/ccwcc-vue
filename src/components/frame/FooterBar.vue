@@ -9,8 +9,7 @@
                 <a href="https://github.com/JulianXG/ccwcc-vue/tree/dev" target="_blank">GitHub地址</a>
             </p>
             <p class="footer-content">
-                <a href="http://ccwcc.kalyter.cn/api/swagger-ui.html"
-                   target="_blank">后台API文档</a>
+                <a href="http://ccwcc.kalyter.cn/api/swagger-ui.html"  target="_blank">后台API文档</a>
             </p>
             <p class="footer-content">
                 <a v-link="{path:'/index/changeLog'}">更新日志</a>

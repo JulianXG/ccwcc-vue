@@ -129,7 +129,7 @@
                 },
                 rules: {
                     birdId: [{required: true, type: 'number', message: '必须选择一个鸟种', trigger: 'blur'}],
-                    flagColorCombination: [{required: true, type: 'array', message: '至少选择一种颜色', trigger: 'change'}],
+//                    flagColorCombination: [{required: true, type: 'array', message: '至少选择一种颜色', trigger: 'change'}],
 //                    lu: [
 //                        {required: true, type: 'array', message: '至少选择一种颜色', trigger: 'change'}
 //                    ],
@@ -159,6 +159,7 @@
                         this.flag.ru = this.flag.ru.join(',');
                         this.flag.ld = this.flag.ld.join(',');
                         this.flag.rd = this.flag.rd.join(',');
+                        this.flag.discoveredTime = this.flag.discoveredTime.toLocaleString();
                         FlagSubmitResource.save(this.flag)
                             .then(() => {
                                 this.$Message.success(Config.MSG_SUBMIT_SUCCESS);
@@ -173,6 +174,7 @@
                         this.flag.ru = [];
                         this.flag.ld = [];
                         this.flag.rd = [];
+                        this.flag.discoveredTime = new Date();
                     } else {
                         this.$Message.error(Config.MSG_VALIDATE_ERROR);
                     }

@@ -25,7 +25,7 @@ Vue.http.interceptors.push((request, next) => {
                 title: '出错',
                 content: '权限不够，请求出错！'
             });
-        } else if (response.json().code !== Config.CODE_SUCCESS) {
+        } else if (response.status >= 500) {
             Modal.error({
                 title: '出错',
                 content: '服务器请求出错！'
@@ -36,7 +36,7 @@ Vue.http.interceptors.push((request, next) => {
 
 export const UserPaginationResource = Vue.resource(ServerAPI.USER_PAGINATION);
 
-export const UsersResource = Vue.resource(ServerAPI.USERS);
+export const UsersResource = Vue.resource(ServerAPI.REGISTER);
 
 export const DeleteUserResource = Vue.resource(ServerAPI.DELETE_USER);
 
@@ -57,3 +57,13 @@ export const DownloadResource = Vue.resource(ServerAPI.RECORD_DOWNLOAD_RESOURCE)
 export const SearchResource = Vue.resource(ServerAPI.SEARCH_RESOURCE);
 
 export const CheckpointUserResource = Vue.resource(ServerAPI.CHECKPOINT_USER);
+
+export const SendValidateCodeResource = Vue.resource(ServerAPI.SEND_VALIDATE_CODE_RESOURCE);
+
+export const VerifyValidateCodeResource = Vue.resource(ServerAPI.VERIFY_VALIDATE_CODE_RESOURCE);
+
+export const CheckUsernameResource = Vue.resource(ServerAPI.CHECK_USERNAME_RESOURCE);
+
+export const CheckEmailResource = Vue.resource(ServerAPI.CHECK_USERNAME_EMAIL);
+
+export const ChangePasswordResource = Vue.resource(ServerAPI.CHANGE_PASSWORD);

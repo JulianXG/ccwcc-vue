@@ -54,6 +54,7 @@
 <script>
     import {BirdRecordResource, BirdBriefResource} from '../../resources/index';
     import Config from '../../config';
+    import Util from '../../util';
 
     export default{
         data () {
@@ -80,7 +81,10 @@
                 this.$refs[record].validate((valid) => {
                     if (valid) {
                         this.$Modal.info({content: '正在向服务器提交数据……'});
-                        BirdRecordResource.save(JSON.stringify(this.record))
+                        let recordCopy = JSON.parse(JSON.stringify(this.record));
+                        recordCopy.recordTime = Util.formatDate(this.record.recordTime);
+                        console.log(recordCopy);
+                        BirdRecordResource.save(JSON.stringify(recordCopy))
                             .then(response => {
                                 this.$Message.success('提交成功，成功插入' +
                                     response.json().data + '条数据');

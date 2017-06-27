@@ -6,7 +6,14 @@
                 <Row>
                     <i-col span="20">
                         <img class="frame-logo" src="../../assets/img/favicon.png">
-                        <span class="frame-system-name">{{systemName}}({{checkpoint}})</span>
+                        <span class="frame-system-name">{{systemName}}</span>
+                        <i-select :model.sync="checkpoint"
+                                  style="margin-left: 8px;width: 240px;"
+                                  @on-change="changeCheckpoint">
+                            <i-option v-for="item in allCheckpoints" :value="item">
+                                {{item}}
+                            </i-option>
+                        </i-select>
                     </i-col>
                     <i-col span="4">
                         <Submenu v-if="nickname" key="1">
@@ -45,9 +52,9 @@
                             <Menu-item key="2-1" @click="navigate({path:'/index/visual/data'})">
                                 数量统计
                             </Menu-item>
-                            <Menu-item key="2-2" @click="navigate({path: '/index/visual/map'})">
-                                地图数据
-                            </Menu-item>
+                            <!--<Menu-item key="2-2" @click="navigate({path: '/index/visual/map'})">-->
+                                <!--地图数据-->
+                            <!--</Menu-item>-->
                         </Submenu>
                         <Submenu key="3">
                             <template slot="title">
@@ -123,17 +130,20 @@
         data () {
             return {
                 theme: 'light',
-                systemName: '中国水鸟调查数据管理系统',
+                systemName: Config.SYSTEM_NAME,
                 checkpoint: '',
-                nickname: ''
+                nickname: '',
+                allCheckpoints: []
             };
         },
         ready () {
-            let checkpointId = Util.getCookie(Config.COOKIE_CHECKPOINT);
+            let checkpointName = Config.getCheckpointName(Util.getCookie(Config.COOKIE_CHECKPOINT));
             let nickname = Util.getCookie(Config.COOKIE_NICKNAME);
-            this.checkpoint = Config.getCheckpoint(checkpointId);
+            this.checkpoint = checkpointName;
             this.nickname = nickname;
-            document.title = this.checkpoint;
+            let json = JSON.parse(Util.getCookie(Config.COOKIE_ALL_CHECKPOINT));
+            this.allCheckpoints = Util.getCheckpoints(json);
+            document.title = this.systemName;
         },
         methods: {
             navigate (config) {
@@ -144,6 +154,10 @@
                 Util.deleteCookie(Config.COOKIE_NICKNAME);
                 Util.deleteCookie(Config.COOKIE_TOKEN);
                 this.$router.go('/login');
+            },
+            changeCheckpoint (value) {
+                let checkpointId = Config.parseCheckpoint(value);
+                Util.setCookie(Config.COOKIE_CHECKPOINT, checkpointId);
             }
         }
     };

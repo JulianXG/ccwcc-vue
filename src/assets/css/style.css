@@ -77,5 +77,8 @@ body, html {
 }
 #app {
   min-width:1280px;
+}
+
+body {
   background-color: #eee;
 }

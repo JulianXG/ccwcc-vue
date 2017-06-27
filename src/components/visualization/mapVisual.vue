@@ -44,7 +44,7 @@
                 let bmap = this.mapChart.getModel().getComponent('bmap').getBMap();
                 bmap.addControl(new BMap.MapTypeControl());
             },
-            getCheckpoint () {
+            getCheckpointName () {
                 CheckpointBrief.get()
                     .then(response => {
                         if (response.json().code === Config.CODE_SUCCESS) {
@@ -58,9 +58,9 @@
                 let points = [];
                 data.forEach(element => {
 //                    for (let i = 0; i < 100; i++) {
-//                        let x = element.latitude + Math.random() * i;
-//                        let y = element.longitude + Math.random() * i;
 //                    }
+                    let x = element.latitude;
+                    let y = element.longitude;
                     points.push(
     //                        name: element.name,
     //                        value: [element.latitude, element.lontitude, parseInt(Math.random() * 1000)]
@@ -73,7 +73,7 @@
         },
         ready () {
             this.mapChart = echarts.init(document.getElementById('map'));
-            this.getCheckpoint();
+            this.getCheckpointName();
         }
     };
 </script>
